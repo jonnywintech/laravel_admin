@@ -91,7 +91,7 @@
                         </div>
                     </nav>
                 </div>
-               <div class="flex flex-center w-full p-4">
+               <div class="flex justify-center h-screen w-full p-4">
                 {{ $slot }}
                </div>
             </div>
