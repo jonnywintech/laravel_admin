@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth', 'role:admin')->group(function(){
-    Route::resource('/admin', AdminController::class);
+Route::middleware('auth', 'role:admin')->name('admin.')->prefix('admin')->group(function(){
+    Route::resource('/', AdminController::class);
+    Route::resource('/role', RoleController::class);
+    Route::resource('/permission', PermissionController::class);
 });
 
 require __DIR__.'/auth.php';
