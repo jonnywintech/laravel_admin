@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PermissionRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
@@ -22,15 +23,19 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.permission.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        Permission::create($validated);
+
+        return to_route('admin.permission.index');
     }
 
     /**
@@ -44,24 +49,29 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Permission $permission)
     {
-        //
+        return view('admin.permission.edit', compact('permission'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PermissionRequest $request, Permission $permission)
     {
-        //
+        $validated = $request->validated();
+        $permission->update($validated);
+
+        return to_route('admin.permission.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Permission $permission)
     {
-        //
+       $permission->delete();
+
+       return to_route('admin.permission.index');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -21,15 +22,19 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.role.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        Role::create($data);
+
+        return to_route('admin.role.index');
     }
 
     /**
@@ -43,24 +48,30 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Role $role)
     {
-        //
+        return view('admin.role.edit', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(RoleRequest $request, Role $role)
     {
-        //
+        $data = $request->validated();
+
+        $role->update($data);
+
+        return to_route('admin.role.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+
+        return to_route('admin.role.index');
     }
 }
