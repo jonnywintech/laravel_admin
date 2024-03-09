@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth', 'role:admin')->name('admin.')->prefix('admin')->group(function(){
     Route::resource('/', AdminController::class);
     Route::resource('/role', RoleController::class);
+    Route::post('/role/{role}/permissions', [RoleController::class, 'setPermissions'])->name('role.permissions');
     Route::resource('/permission', PermissionController::class);
 });
 
