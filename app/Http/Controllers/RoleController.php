@@ -82,15 +82,9 @@ class RoleController extends Controller
     public function setPermissions(Request $request, Role $role)
     {
 
-        $current_active_permissions = $role->permissions->pluck('name')->toArray();
         $data = $request->permission;
 
-        $results = array_diff($current_active_permissions, $data);
-        if ($results) {
-            $role->revokePermissionTo($results);
-        }
-
-        $role->givePermissionTo($data);
+        $role->syncPermissions($data);
 
         return redirect()->back();
     }

@@ -37,7 +37,8 @@
                     x-data="{ open: false }">
                     <div class="flex flex-row items-center justify-between flex-shrink-0 px-8 py-4">
                         <a href="#"
-                            class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">Admin Area</a>
+                            class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">Admin
+                            Area</a>
                         <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
                             @click="open = !open">
                             <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
@@ -52,12 +53,12 @@
                     </div>
                     <nav :class="{ 'block': open, 'hidden': !open }"
                         class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
-                        <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900  {{request()->routeIs('admin.role.*')? 'bg-gray-200' : 'bg-transparent'}} rounded-lg dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                            href="{{route('admin.role.index')}}">Role</a>
-                        <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900  {{request()->routeIs('admin.permission.*')? 'bg-gray-200' : 'bg-transparent'}} rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                            href="{{route('admin.permission.index')}}">Permission</a>
-                        <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                            href="#">Users</a>
+                        <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900  {{ request()->routeIs('admin.role.*') ? 'bg-gray-200' : 'bg-transparent' }} rounded-lg dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                            href="{{ route('admin.role.index') }}">Role</a>
+                        <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900  {{ request()->routeIs('admin.permission.*') ? 'bg-gray-200' : 'bg-transparent' }} rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                            href="{{ route('admin.permission.index') }}">Permission</a>
+                        <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 {{ request()->routeIs('admin.users.*') ? 'bg-gray-200' : 'bg-transparent' }} rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                            href="{{ route('admin.users.index') }}">Users</a>
                         <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                             href="#">Contact</a>
                         <div @click.away="open = false" class="relative" x-data="{ open: false }">
@@ -91,9 +92,9 @@
                         </div>
                     </nav>
                 </div>
-               <div class="flex justify-center h-screen w-full p-4">
-                {{ $slot }}
-               </div>
+                <div class="flex justify-center h-screen w-full p-4">
+                    {{ $slot }}
+                </div>
             </div>
         </main>
     </div>

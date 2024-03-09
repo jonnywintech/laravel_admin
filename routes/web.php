@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
@@ -35,6 +36,8 @@ Route::middleware('auth', 'role:admin')->name('admin.')->prefix('admin')->group(
     Route::resource('/role', RoleController::class);
     Route::post('/role/{role}/permissions', [RoleController::class, 'setPermissions'])->name('role.permissions');
     Route::resource('/permission', PermissionController::class);
+    Route::resource('/users', UserController::class);
+    Route::patch('/users/{id}/update', [UserController::class, 'updateUserData'])->name('users.update.data');
 });
 
 require __DIR__.'/auth.php';
