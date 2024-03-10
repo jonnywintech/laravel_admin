@@ -13,7 +13,7 @@ class RoutesController extends Controller
     public function index()
     {
 
-        $routes = [];
+        $route_groups = [];
         $all_routes = Route::getRoutes();
         foreach ($all_routes as $route) {
             $route_name = $route->getName();
@@ -29,11 +29,12 @@ class RoutesController extends Controller
             } else if ($route_name === null) {
                 continue;
             }
-
-            array_push($routes, $route_name);
+            $route_prefix = explode('.', $route_name)[0];
+            $route_groups[$route_prefix][] = $route_name;
         }
 
-        return view('admin.routes.index', compact('routes'));
+
+        return view('admin.routes.index', compact('route_groups'));
     }
 
     /**
