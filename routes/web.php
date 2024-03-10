@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoutesController;
+use App\Http\Middleware\DynamicRouteMiddleware;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,13 +34,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth', 'role:admin')->name('admin.')->prefix('admin')->group(function(){
+Route::middleware('auth', 'role:admin', DynamicRouteMiddleware::class)->name('admin.')->prefix('admin')->group(function () {
     Route::resource('/', AdminController::class);
     Route::resource('/role', RoleController::class);
     Route::post('/role/{role}/permissions', [RoleController::class, 'setPermissions'])->name('role.permissions');
     Route::resource('/permission', PermissionController::class);
     Route::resource('/users', UserController::class);
     Route::patch('/users/{id}/update', [UserController::class, 'updateUserData'])->name('users.update.data');
+    Route::resource('/routes', RoutesController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
