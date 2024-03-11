@@ -1,5 +1,4 @@
 <x-admin-layout>
-
     <div class="flex justify-center">
         <div class="w-full max-w-md mx-4">
             <form method="post" action="{{ route('admin.users.update.data', $user->id) }}"

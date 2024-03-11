@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth', 'role:admin', DynamicRouteMiddleware::class)->name('admin.')->prefix('admin')->group(function () {
+Route::middleware('auth', DynamicRouteMiddleware::class)->name('admin.')->prefix('admin')->group(function () {
     Route::resource('/', AdminController::class);
     Route::resource('/role', RoleController::class);
     Route::post('/role/{role}/permissions', [RoleController::class, 'setPermissions'])->name('role.permissions');

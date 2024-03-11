@@ -3,7 +3,9 @@
         <div class="container flex justify-center align-middle place-items-center flex-col">
             <h2 class=" text-black text-center font-bold gap-3 pb-2">Route Genrator <span class="text-red-500">DANGER
                     ZONE</span></h2>
-            <a href="{{route('admin.routes.generate')}}" onclick="return confirm('Are you shure you want to generate new routes?')" class="btn rounded bg-red-800 px-4 py-2 hover:bg-red-900 hover:cursor text-white w-30 m">Generate Route
+            <a href="{{ route('admin.routes.generate') }}"
+                onclick="return confirm('Are you shure you want to generate new routes?')"
+                class="btn rounded bg-red-800 px-4 py-2 hover:bg-red-900 hover:cursor text-white w-30 m">Generate Route
                 Names</a>
         </div>
         @foreach ($route_groups as $group => $routes)
@@ -27,10 +29,14 @@
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row"
                                     class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $route }}
+                                    {{ $route->route_name }}
+
                                 </th>
                                 <td class="py-4 px-6">
-                                    Sliver
+                                    @foreach ($route->permissions as $permission)
+                                        {{ $permission->name }}
+                                    @endforeach
+
                                 </td>
                                 <td class="py-4 px-6">
                                     Laptop

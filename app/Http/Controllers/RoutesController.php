@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Permissions;
-use App\Models\RoutePermission;
 use Illuminate\Http\Request;
+use App\Models\RoutePermission;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 class RoutesController extends Controller
 {
@@ -13,35 +15,28 @@ class RoutesController extends Controller
      * Display a listing of the resource.
      */
 
-    private array $route_groups, $route_names;
+    private array $grouped_routes = [];
 
     public function __construct()
     {
-        $all_routes = Route::getRoutes();
-        foreach ($all_routes as $route) {
-            $route_name = $route->getName();
-
-            if (str_contains($route_name, 'debugbar.')) {
-                continue;
-            } else if (str_contains($route_name, 'sanctum.')) {
-                continue;
-            } else if (str_contains($route_name, 'ignition.')) {
-                continue;
-            } else if (!str_contains($route_name, '.')) {
-                continue;
-            } else if ($route_name === null) {
+        $permissions = RoutePermission::all();
+        foreach( $permissions as $permission){
+            if(!str_contains($permission->route_name, '.')){
+                $title = 'User Created';
+                $this->grouped_routes[$title][] = $permission;
                 continue;
             }
-            $route_prefix = explode('.', $route_name)[0];
-            $this->route_names[] = $route_name;
-            $this->route_groups[$route_prefix][] = $route_name;
+            $title = explode('.',$permission->route_name)[0];
+
+            $this->grouped_routes[$title][] = $permission;
         }
+
     }
 
 
     public function index()
     {
-        $route_groups = $this->route_groups;
+        $route_groups = $this->grouped_routes;
         return view('admin.routes.index', compact('route_groups'));
     }
 
@@ -95,15 +90,41 @@ class RoutesController extends Controller
 
     public function generateRouteNames()
     {
+        $all_routes = Route::getRoutes();
+        foreach ($all_routes as $route) {
+            $route_name = $route->getName();
 
-        foreach ($this->route_names as $route_name) {
+            if (str_contains($route_name, 'debugbar.')) {
+                continue;
+            } else if (str_contains($route_name, 'sanctum.')) {
+                continue;
+            } else if (str_contains($route_name, 'ignition.')) {
+                continue;
+            } else if (!str_contains($route_name, '.')) {
+                continue;
+            } else if ($route_name === null) {
+                continue;
+            }
+            $route_prefix = explode('.', $route_name)[0];
+            $route_names[] = $route_name;
+            $route_groups[$route_prefix][] = $route_name;
+        }
+
+        foreach ($route_names as $route_name) {
 
             try {
                 $permission = Permissions::create(['name' => $route_name]);
             } catch (\Throwable $th) {
                 $permission = Permissions::where('name', $route_name)->first();
             }
-            RoutePermission::create(['route_name' => $route_name,'permission_id'=> $permission->id]);
+
+            try {
+                RoutePermission::findOrFail($permission->id);
+            } catch (\Throwable $th) {
+
+                RoutePermission::create(['route_name' => $route_name, 'permission_id' => $permission->id]);
+            }
+
         }
 
         return redirect()->back()->with('success', 'Routes and permissions successfully created.');

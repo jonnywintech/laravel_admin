@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('route_permissions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('route_name');
+            $table->string('name');
             $table->foreignId('permission_id')
             ->constrained()
             ->onDelete('cascade');
