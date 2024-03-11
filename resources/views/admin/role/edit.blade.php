@@ -70,7 +70,7 @@
                                 @endphp
                                 <div class="checkbox__inner-container">
                                     <input type="checkbox" name="permission[]" id="checkbox[]" {{ $selected }}
-                                        class="checkbox__child" value="{{ $permission->name }}"></input>
+                                        class="checkbox__child" value="{{ $permission->name }}">
                                     <label for="checkbox[]">{{ $permission->name }}</label>
                                 </div>
                             @endforeach
