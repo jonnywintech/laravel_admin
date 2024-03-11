@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permissions;
+use App\Models\RoutePermission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -10,10 +12,11 @@ class RoutesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
 
-        $route_groups = [];
+    private array $route_groups, $route_names;
+
+    public function __construct()
+    {
         $all_routes = Route::getRoutes();
         foreach ($all_routes as $route) {
             $route_name = $route->getName();
@@ -30,10 +33,15 @@ class RoutesController extends Controller
                 continue;
             }
             $route_prefix = explode('.', $route_name)[0];
-            $route_groups[$route_prefix][] = $route_name;
+            $this->route_names[] = $route_name;
+            $this->route_groups[$route_prefix][] = $route_name;
         }
+    }
 
 
+    public function index()
+    {
+        $route_groups = $this->route_groups;
         return view('admin.routes.index', compact('route_groups'));
     }
 
@@ -83,5 +91,21 @@ class RoutesController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function generateRouteNames()
+    {
+
+        foreach ($this->route_names as $route_name) {
+
+            try {
+                $permission = Permissions::create(['name' => $route_name]);
+            } catch (\Throwable $th) {
+                $permission = Permissions::where('name', $route_name)->first();
+            }
+            RoutePermission::create(['route_name' => $route_name,'permission_id'=> $permission->id]);
+        }
+
+        return redirect()->back()->with('success', 'Routes and permissions successfully created.');
     }
 }

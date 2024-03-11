@@ -7,6 +7,9 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
+                'resources/js/admin-checkbox.js',
+                'resources/js/components/search-filter.js',
+                'resources/js/admin-search-filter.js',
             ],
             refresh: true,
         }),

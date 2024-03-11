@@ -41,6 +41,7 @@ Route::middleware('auth', 'role:admin', DynamicRouteMiddleware::class)->name('ad
     Route::resource('/permission', PermissionController::class);
     Route::resource('/users', UserController::class);
     Route::patch('/users/{id}/update', [UserController::class, 'updateUserData'])->name('users.update.data');
+    Route::get('/routes/generate', [RoutesController::class, 'generateRouteNames'])->name('routes.generate');
     Route::resource('/routes', RoutesController::class);
 });
 

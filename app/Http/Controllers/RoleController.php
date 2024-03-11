@@ -53,8 +53,19 @@ class RoleController extends Controller
     {
 
         $permissions = Permission::all();
+        $permissions_grouped = [];
+        foreach( $permissions as $permission){
+            if(!str_contains($permission->name, '.')){
+                $title = 'User Created';
+                $permissions_grouped[$title][] = $permission;
+                continue;
+            }
+            $title = explode('.',$permission->name)[0];
 
-        return view('admin.role.edit', compact('role', 'permissions'));
+            $permissions_grouped[$title][] = $permission;
+        }
+
+        return view('admin.role.edit', compact('role', 'permissions_grouped'));
     }
 
     /**
