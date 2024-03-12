@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/js/admin-checkbox.js',
                 'resources/js/components/search-filter.js',
                 'resources/js/admin-search-filter.js',
+                'resources/js/admin-users-filter.js',
             ],
             refresh: true,
         }),
