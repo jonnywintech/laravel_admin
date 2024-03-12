@@ -22,9 +22,9 @@ class DynamicRouteMiddleware
 
         // Get the current route name
         $user = Auth::user();
-        // if($user->hasRole('super-admin|admin')){
-        //     return $next($request);
-        // }
+        if($user->hasRole('super-admin|admin')){
+            return $next($request);
+        }
         $route_name = Route::currentRouteName();
         $route_permission_ids = DB::table('route_permissions')
         ->select('permission_id')
