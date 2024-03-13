@@ -38,6 +38,7 @@ Route::middleware('auth', DynamicRouteMiddleware::class)->name('admin.')->prefix
     Route::resource('/', AdminController::class);
     Route::resource('/role', RoleController::class);
     Route::post('/role/{role}/permissions', [RoleController::class, 'setPermissions'])->name('role.permissions');
+    Route::post('/permissions/{permission}/roles', [PermissionController::class, 'setRoles'])->name('permissions.role');
     Route::resource('/permission', PermissionController::class);
     Route::resource('/users', UserController::class);
     Route::patch('/users/{id}/update', [UserController::class, 'updateUserData'])->name('users.update.data');

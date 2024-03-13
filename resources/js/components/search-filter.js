@@ -41,7 +41,6 @@ export default class SearchFilter {
                 this.elements[i].closest(this.targetParent).style.display = "";
             } else {
                 this.elements[i].closest(this.targetParent).style.display = "none";
-                console.log(this.elements[i].closest(this.targetParent));
             }
         }
     }
