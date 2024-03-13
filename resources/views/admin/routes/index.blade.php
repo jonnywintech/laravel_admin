@@ -12,8 +12,9 @@
                 Names</a>
         </div>
         @foreach ($route_groups as $group => $routes)
-            <form action="" method="post">
+            <form action="" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="container py-1 " :class="{ 'block': open, 'hidden': !open }">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-white uppercase bg-gray-500 dark:bg-gray-700 dark:text-gray-400">
@@ -34,29 +35,32 @@
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row"
                                         class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{-- {{ $route->route_name }} --}}
-                                    <input type=text name="route_name" value="{{ $route->route_name }}">
+                                        <input type=text name="route_name" value="{{ $route->route_name }}" readonly>
                                     </th>
                                     <td class="py-4 px-6">
+                                        <input type="hidden" class="permission__delete-container"
+                                            name="delete_route_names" value="">
                                         @foreach ($route->permissions as $permission)
                                             <div class="permission flex gap-3">
                                                 <div
-                                                    class="permission__exist border bg-green-50 border-gray-400 rounded-xl px-2.5 py-2.5 rounded">
-                                                    {{ $permission->name }}
-                                                    <a href="" class="btn text-red-700 font-bold">&#x2715;</a>
+                                                    class="permission__route-name border bg-green-50 border-gray-400 rounded-xl px-2.5 py-2.5">
+                                                    <span
+                                                        class="permission__item-text cursor-default">{{ $permission->name }}</span>
+                                                    <span
+                                                        class="permission__item-button btn text-red-700 font-bold cursor-pointer">&#x2715;</span>
                                                 </div>
-                                                <div class="permission__create">
-
-                                                    <input type="text" name="permission[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Permission name |ex. edit">
-
+                                                <div class="permission__create flex gap-2">
+                                                    <input type="text" name="permission[]"
+                                                        class="permission__create-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Permission name |ex. edit">
                                                 </div>
-                                                <button type="button" class="btn bg-green-500 hover:bg-green-700 px-3.5 rounded-full text-white font-bold text-2xl">+</button>
                                             </div>
                                         @endforeach
 
                                     </td>
                                     <td class="py-4 px-6">
-                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 px-4 py-2 text-white rounded-md">Save</button>
+                                        <button type="submit"
+                                            class="bg-blue-500 hover:bg-blue-700 px-4 py-2 text-white rounded-md">Save</button>
                                     </td>
 
                                 </tr>
