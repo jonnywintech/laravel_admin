@@ -42,8 +42,10 @@ Route::middleware('auth', DynamicRouteMiddleware::class)->name('admin.')->prefix
     Route::resource('/permission', PermissionController::class);
     Route::resource('/users', UserController::class);
     Route::patch('/users/{id}/update', [UserController::class, 'updateUserData'])->name('users.update.data');
-    Route::get('/routes/generate', [RoutesController::class, 'generateRouteNames'])->name('routes.generate');
-    Route::resource('/routes', RoutesController::class);
+    Route::get('/routes', [RoutesController::class, 'index'])->name('routes.index');
+    Route::get('/routes/generate', [RoutesController::class, 'generateRouteNames'])->name('routes.store');
+    Route::put('/routes/{route}/update', [RoutesController::class, 'update'])->name('routes.update');
+
 });
 
 require __DIR__ . '/auth.php';

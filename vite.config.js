@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/js/components/search-filter.js',
                 'resources/js/admin-search-filter.js',
                 'resources/js/admin-users-filter.js',
+                'resources/js/admin-route-permissions.js',
             ],
             refresh: true,
         }),
