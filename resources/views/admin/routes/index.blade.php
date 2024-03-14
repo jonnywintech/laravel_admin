@@ -12,7 +12,7 @@
                 Names</a>
         </div>
         @foreach ($route_groups as $group => $routes)
-            <form action="" method="POST">
+            <form action="" method="PUT">
                 @csrf
                 @method('PUT')
                 <div class="container py-1 " :class="{ 'block': open, 'hidden': !open }">
