@@ -90,7 +90,7 @@ class RoutesController extends Controller
 
         }
 
-        return redirect()->back()->with('success', 'Routes and permissions successfully created.');
+        return redirect()->back();
     }
 
     /**

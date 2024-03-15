@@ -1,12 +1,13 @@
+@section('vite_header')
+    @vite('resources/js/admin/users/index.js')
+@endsection
 <x-admin-layout>
-    @section('vite_header')
-        @vite('resources/js/admin-users-filter.js')
-    @endsection
     <div class="w-full h-auto overflow-x-auto sm:rounded-lg">
         <div class="flex flex-end pb-4">
             <a href="{{ route('admin.permission.create') }}"
                 class="px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded">Create</a>
-            <x-search-component wrapperClass="inline w-4/12 ms-4" name="Search" inputClass="admin__users-search" placeholder="Filter users by email" />
+            <x-search-component wrapperClass="inline w-4/12 ms-4" name="Search" inputClass="admin__users-search"
+                placeholder="Filter users by email" />
         </div>
 
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

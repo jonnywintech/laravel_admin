@@ -1,14 +1,16 @@
+@section('vite_header')
+    @vite('resources/js/admin/route-permissions/index.js')
+@endsection
 <x-admin-layout>
-    @section('vite_header')
-        @vite(['resources/js/admin-route-permissions.js'])
-    @endsection
     <div class="relative shadow-md sm:rounded-lg w-full">
-        <div class="container flex justify-center align-middle place-items-center flex-col">
+        <div class="container flex  align-start place-items-start flex-col">
             <h2 class=" text-black text-center font-bold gap-3 pb-2">Route Genrator <span class="text-red-500">DANGER
                     ZONE</span></h2>
+                    <x-search-component wrapperClass="w-4/12 ms-4 my-2" name="Search" inputClass="admin__routes-search"
+                    placeholder="Filter users by email" />
             <a href="{{ route('admin.routes.store') }}"
                 onclick="return confirm('Are you shure you want to generate new routes?')"
-                class="btn rounded bg-red-800 px-4 py-2 hover:bg-red-900 hover:cursor text-white w-30 m">Generate Route
+                class="btn rounded bg-red-800 px-4 py-2 hover:bg-red-900 hover:cursor text-white w-30">Generate Route
                 Names</a>
         </div>
         @foreach ($route_groups as $group => $routes)

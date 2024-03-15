@@ -1,3 +1,6 @@
+@section('vite_header')
+    @vite('resources/js/admin/users/edit.js')
+@endsection
 <x-admin-layout>
     <div class="flex justify-center">
         <div class="w-full max-w-md mx-4">
@@ -23,19 +26,21 @@
             </form>
         </div>
         <div class="w-full max-w-md mx-4">
+
             <form method="POST" action="{{ route('admin.users.update', $user) }}"
                 class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 @method('PUT')
                 @csrf
                 <div class="mb-4">
-
-                    <h4 class="text-black font-bold pb-2">Select roles to add</h4>
+                    <x-search-component wrapperClass="inline w-4/12 ms-4" name="Search" inputClass="admin__users-roles"
+                    placeholder="Filter roles" />
+                    <h4 class="text-black font-bold py-2">Select roles to add</h4>
                     @foreach ($roles as $role)
                         <div class="checkbox__wrapper py-1">
                             @php
                                 $checked = $user->roles->contains('name', $role->name) ? 'checked' : '';
                             @endphp
-                            <input name="roles[]" type="checkbox" {{ $checked }} value="{{ $role->name }}">
+                            <input name="roles[]" type="checkbox" {{ $checked }} value="{{ $role->name }}" class="get-data">
                             <label>{{ $role->name }}</label>
                         </div>
                     @endforeach

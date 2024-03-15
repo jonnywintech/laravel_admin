@@ -1,7 +1,7 @@
+@section('vite_header')
+    @vite('resources/js/admin/role/edit.js')
+@endsection
 <x-admin-layout>
-    @section('vite_header')
-        @vite(['resources/js/admin-checkbox.js','resources/js/admin-search-filter.js'])
-    @endsection
     <div class="w-full flex">
         <div class="w-full max-w-md mx-4">
             <form method="POST" action="{{ route('admin.role.update', $role) }}"
@@ -47,7 +47,7 @@
                         <input type="text" id="input-group-search"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-600
                             dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
-                            admin__search"
+                            admin__role-permission"
                             placeholder="Filter permissions">
                     </div>
                 </div>

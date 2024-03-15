@@ -1,3 +1,8 @@
+import SearchFilter from "../../components/search-filter";
+
+const filter = new SearchFilter('.admin__routes-search','.permission__item-text', 'tr');
+filter.filterFunction();
+
 let forms = document.querySelectorAll("form");
 
 function load() {
