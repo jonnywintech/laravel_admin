@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 
 
 class User extends Authenticatable
@@ -45,4 +46,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function canAccessRoute($route_name)
+    {
+        if($this->hasRole('super-admin|admin')){
+            return true;
+        }
+
+        $route_permission_ids = DB::table('route_permissions')
+        ->select('permission_id')
+        ->where('route_name', $route_name)->get()
+        ->pluck('permission_id')->toArray();
+        if(!$this->hasAnyPermission($route_permission_ids)){
+            return false;
+        }
+        return true;
+    }
 }
