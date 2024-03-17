@@ -3,24 +3,13 @@ import SearchFilter from "../../components/search-filter";
 const filter = new SearchFilter('.admin__routes-search','.permission__item-text', 'tr');
 filter.filterFunction();
 
-let forms = document.querySelectorAll("form");
 
-function load() {
-    forms.forEach((form) => {
-        let data = [];
+const submitButtons = document.querySelectorAll('.submit__button');
 
-        const deleteButtons = form.querySelectorAll(".permission__item-button");
-        let deleteInput = form.querySelector(".permission__delete-container");
 
-        deleteButtons.forEach((deleteButton) => {
-            deleteButton.addEventListener("click", () => {
-                console.log("clicked delete button");
-                data.push(deleteButton.previousElementSibling.textContent);
-                deleteInput.value = JSON.stringify(data);
-                deleteButton.closest("div").remove();
-            });
-        });
-    });
-}
+submitButtons.forEach(button => {
+    button.addEventListener('click', ()=>{
+        button.closest('tr').querySelector('form').submit();
 
-load();
+    })
+})

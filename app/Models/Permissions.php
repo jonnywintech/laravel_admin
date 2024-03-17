@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\RoutePermission;
+use App\Models\Route;
 use Spatie\Permission\Models\Permission as SpatiePermission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -13,6 +14,6 @@ class Permissions extends SpatiePermission
 
     public function routes()
     {
-        return $this->hasMany(RoutePermission::class);
+        return $this->belongsToMany(Route::class, 'route_permissions');
     }
 }

@@ -2,21 +2,29 @@
     @vite('resources/js/admin/route-permissions/index.js')
 @endsection
 <x-admin-layout>
+    @if($errors->any())
+    <ul>
+
+    @foreach ($errors->all() as $error)
+        <li> <span class="text-red-500">{{$error}} </span></li>
+    @endforeach
+
+    </ul>
+
+    @endif
     <div class="relative shadow-md sm:rounded-lg w-full">
-        <div class="container flex  align-start place-items-start flex-col">
+        <div class="container flex justify-between place-items-start align items-center gap-4">
             <h2 class=" text-black text-center font-bold gap-3 pb-2">Route Genrator <span class="text-red-500">DANGER
                     ZONE</span></h2>
-                    <x-search-component wrapperClass="w-4/12 ms-4 my-2" name="Search" inputClass="admin__routes-search"
-                    placeholder="Filter users by email" />
+            <x-search-component wrapperClass="w-4/12 ms-4 my-2" name="Search" inputClass="admin__routes-search"
+                placeholder="Filter routes by route name" />
             <a href="{{ route('admin.routes.store') }}"
                 onclick="return confirm('Are you shure you want to generate new routes?')"
                 class="btn rounded bg-red-800 px-4 py-2 hover:bg-red-900 hover:cursor text-white w-30">Generate Route
                 Names</a>
         </div>
         @foreach ($route_groups as $group => $routes)
-            <form action="" method="PUT">
-                @csrf
-                @method('PUT')
+
                 <div class="container py-1 " :class="{ 'block': open, 'hidden': !open }">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-white uppercase bg-gray-500 dark:bg-gray-700 dark:text-gray-400">
@@ -35,14 +43,18 @@
                         <tbody>
                             @foreach ($routes as $route)
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
                                     <th scope="row"
                                         class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <input type=text name="route_name" value="{{ $route->route_name }}" readonly>
                                     </th>
                                     <td class="py-4 px-6">
-                                        <input type="hidden" class="permission__delete-container"
-                                            name="delete_route_names" value="">
-                                        @foreach ($route->permissions as $permission)
+                                        <form action="{{route('admin.routes.update', $route)}}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type=hidden name="route_name" value="{{ $route->route_name }}">
+                                            @dd($route->permissions());
+                                        @foreach ($route->permissions() as $permission)
                                             <div class="permission flex gap-3">
                                                 <div
                                                     class="permission__route-name border bg-green-50 border-gray-400 rounded-xl px-2.5 py-2.5">
@@ -59,18 +71,17 @@
                                             </div>
                                         @endforeach
 
+                                    </form>
                                     </td>
                                     <td class="py-4 px-6">
-                                        <button type="submit"
-                                            class="bg-blue-500 hover:bg-blue-700 px-4 py-2 text-white rounded-md">Save</button>
+                                        <button type="button"
+                                            class="bg-blue-500 hover:bg-blue-700 px-4 py-2 text-white rounded-md submit__button">Save</button>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-            </form>
         @endforeach
     </div>
 
