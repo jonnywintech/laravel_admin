@@ -7,7 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\RoutesController;
+use App\Http\Controllers\RouteController;
 use App\Http\Middleware\DynamicRouteMiddleware;
 
 
@@ -42,9 +42,9 @@ Route::middleware('auth', DynamicRouteMiddleware::class)->name('admin.')->prefix
     Route::resource('/permission', PermissionController::class);
     Route::resource('/users', UserController::class);
     Route::patch('/users/{id}/update', [UserController::class, 'updateUserData'])->name('users.update.data');
-    Route::get('/routes', [RoutesController::class, 'index'])->name('routes.index');
-    Route::get('/routes/generate', [RoutesController::class, 'store'])->name('routes.store');
-    Route::put('/routes/{route}/update', [RoutesController::class, 'update'])->name('routes.update');
+    Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
+    // Route::get('/routes/generate', [RouteController::class, 'store'])->name('routes.store');
+    Route::put('/routes/{route}/update', [RouteController::class, 'update'])->name('routes.update');
 
 });
 

@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('route_permissions', function (Blueprint $table) {
+        Schema::create('permission_route', function (Blueprint $table) {
             $table->id();
             $table->foreignId('route_id')
-            ->constrained()
-            ->onDelete('cascade')->nullable();
+                ->constrained()
+                ->onDelete('cascade');
             $table->foreignId('permission_id')
-            ->constrained()
-            ->onDelete('cascade')->nullable();
+                ->constrained()
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('route_permissions');
+        Schema::dropIfExists('route_permission');
     }
 };
