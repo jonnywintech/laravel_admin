@@ -53,7 +53,7 @@ class User extends Authenticatable
             return true;
         }
 
-        $route_permission_ids = DB::table('route_permissions')->leftJoin('routes','route_permissions.route_id', '=' ,'routes.id')
+        $route_permission_ids = DB::table('permission_route')->leftJoin('routes','permission_route.route_id', '=' ,'routes.id')
         ->select('permission_id')
         ->where('routes.name', $route_name)->get()
         ->pluck('permission_id')->toArray();
