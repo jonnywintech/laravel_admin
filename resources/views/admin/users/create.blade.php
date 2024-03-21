@@ -43,24 +43,17 @@
                 </div>
                 <button type="submit"
                     class="btn px-4 py-2 bg-blue-500 rounded hover:bg-blue-700 text-white">Create</button>
-            </form>
         </div>
         <div class="w-full max-w-md mx-4">
-            {{-- here needs to be implemented somehow...
-            <form method="POST" action="{{ route('admin.users.update','id__id') }}"
-                class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                @method('PUT')
-                @csrf
+            {{-- here needs to be implemented somehow... --}}
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div class="mb-4">
                     <x-search-component wrapperClass="inline w-4/12 ms-4" name="Search" inputClass="admin__users-roles"
-                    placeholder="Filter roles" />
+                        placeholder="Filter roles" />
                     <h4 class="text-black font-bold py-2">Select roles to add</h4>
                     @foreach ($roles as $role)
                         <div class="checkbox__wrapper py-1">
-                            @php
-                                $checked = $user->roles->contains('name', $role->name) ? 'checked' : '';
-                            @endphp
-                            <input name="roles[]" type="checkbox" {{ $checked }} value="{{ $role->name }}" class="get-data">
+                            <input name="roles[]" type="checkbox" value="{{ $role->name }}" class="get-data">
                             <label>{{ $role->name }}</label>
                         </div>
                     @endforeach
@@ -72,12 +65,13 @@
                         Save
                     </button>
                 </div>
-            </form> --}}
+            </div>
             @error('name')
                 <p class="text-red-500">
                     {{ $message }}
                 </p>
             @enderror
+            </form>
         </div>
     </div>
 </x-admin-layout>
