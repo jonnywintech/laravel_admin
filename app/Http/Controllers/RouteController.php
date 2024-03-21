@@ -9,11 +9,11 @@ use App\Models\PermissionRoute;
 use App\Traits\RouteHelperTrait;
 use App\Models\Route as RouteModel;
 
-
 class RouteController extends Controller
 {
     use RouteHelperTrait;
 
+    // constructor generates new routes if they are created
     public function __construct()
     {
         foreach ($this->getFilteredRoutes() as $route_name) {
@@ -29,10 +29,6 @@ class RouteController extends Controller
     }
     public function index()
     {
-
-        // $route_permissions = RouteModel::with('permissions')->get();
-
-        // $route_groups = $this->getFilteredRoutes();
 
         $route_groups = [];
 
@@ -63,8 +59,21 @@ class RouteController extends Controller
     }
 
 
-    public function update()
+    public function update(Request $request)
     {
+        // dd($request);
+        if(isset($request->delete_permission)){
+            $permissions = Permission::whereIn('name', $request->delete_permission);
+            $permissions->delete();
+        }
 
+        if(isset($request->permission)){
+            $permission = Permission::firstOrCreate(['name' => $request->permission]);
+            $route = RouteModel::where('name', $request->route_name)->first();
+
+            $route->permissions()->attach($permission);
+        }
+
+        return redirect()->back();
     }
 }

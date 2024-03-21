@@ -13,10 +13,9 @@
 
     @endif
     <div class="relative shadow-md sm:rounded-lg w-full">
-        <div class="container flex justify-between place-items-start align items-center gap-4">
-            <h2 class=" text-black text-center font-bold gap-3 pb-2">Route Genrator <span class="text-red-500">DANGER
-                    ZONE</span></h2>
-            <x-search-component wrapperClass="w-4/12 ms-4 my-2" name="Search" inputClass="admin__routes-search"
+        <div class="container flex align items-center gap-4 px-3">
+            <h2 class="text-black text-center font-bold gap-3 pb-2">Route Genrator</h2>
+            <x-search-component wrapperClass="w-4/12 my-2 ms-auto me-auto" name="Search" inputClass="admin__routes-search"
                 placeholder="Filter routes by route name" />
         </div>
         @foreach ($route_groups as $group => $routes)
@@ -47,8 +46,8 @@
                                         @csrf
                                         @method('PUT')
                                         <input type=hidden name="route_name" value="{{ $route->name }}">
-                                        @foreach ($route->permissions()->get() as $permission)
-                                            <div class="permission flex gap-3">
+                                        <div class="permission flex flex-wrap gap-3">
+                                            @foreach ($route->permissions()->get() as $permission)
                                                 <div
                                                     class="permission__route-name border bg-green-50 border-gray-400 rounded-xl px-2.5 py-2.5">
                                                     <span
@@ -56,13 +55,13 @@
                                                     <span
                                                         class="permission__item-button btn text-red-700 font-bold cursor-pointer">&#x2715;</span>
                                                 </div>
-                                                <div class="permission__create flex gap-2">
-                                                    <input type="text" name="permission[]"
-                                                        class="permission__create-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        placeholder="Permission name |ex. edit">
-                                                </div>
+                                            @endforeach
+                                            <div class="permission__create flex gap-2">
+                                                <input type="text" name="permission"
+                                                    class="permission__create-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    placeholder="Permission name |ex. edit">
                                             </div>
-                                        @endforeach
+                                        </div>
 
                                     </form>
                                 </td>
