@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\PermissionRoute;
 use App\Traits\RouteHelperTrait;
 use App\Models\Route as RouteModel;
+use Illuminate\Support\Facades\Artisan;
 
 class RouteController extends Controller
 {
@@ -16,16 +17,7 @@ class RouteController extends Controller
     // constructor generates new routes if they are created
     public function __construct()
     {
-        foreach ($this->getFilteredRoutes() as $route_name) {
-
-            // dd($this->getFilteredRoutes());
-            $route = RouteModel::firstOrCreate(['name' => $route_name]);
-
-            $permission = Permission::firstOrCreate(['name' => $route_name]);
-
-            PermissionRoute::firstOrCreate(['route_id' => $route->id, 'permission_id' => $permission->id]);
-
-        }
+        Artisan::call('app:generate-base-route-permissions');
     }
     public function index()
     {

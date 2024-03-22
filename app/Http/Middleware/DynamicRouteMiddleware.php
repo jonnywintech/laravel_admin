@@ -26,9 +26,10 @@ class DynamicRouteMiddleware
             return $next($request);
         }
         $route_name = Route::currentRouteName();
-        $route_permission_ids = DB::table('route_permissions')
+        $route_permission_ids = DB::table('permission_route')
             ->select('permission_id')
-            ->where('route_name', $route_name)->get()
+            ->leftJoin('routes','permission_route.route_id','routes.id')
+            ->where('routes.name', $route_name)->get()
             ->pluck('permission_id')->toArray();
 
 
