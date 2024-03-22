@@ -8,12 +8,12 @@
                 class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 @method('PUT') @csrf
                 <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="roles">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="role__{{$role->id}}">
                         Role
                     </label>
                     <input
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="roles" type="text" placeholder="roles" name="name" value="{{ $role->name }}">
+                        id="role__{{$role->id}}" type="text" placeholder="roles" name="name" value="{{ $role->name }}">
                 </div>
                 <div class="flex items-center justify-between">
                     <button
@@ -69,9 +69,9 @@
                                         : '';
                                 @endphp
                                 <div class="checkbox__inner-container">
-                                    <input type="checkbox" name="permission[]" id="checkbox[]" {{ $selected }}
+                                    <input type="checkbox" name="permission[]" id="checkbox__{{$permission->id}}" {{ $selected }}
                                         class="checkbox__child" value="{{ $permission->name }}">
-                                    <label for="checkbox[]">{{ $permission->name }}</label>
+                                    <label for="checkbox__{{$permission->id}}">{{ $permission->name }}</label>
                                 </div>
                             @endforeach
                         </div>
