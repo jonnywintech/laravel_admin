@@ -14,7 +14,7 @@
     @endif
     <div class="relative shadow-md sm:rounded-lg w-full">
         <div class="container flex align items-center gap-4 px-3">
-            <h2 class="text-black text-center font-bold gap-3 pb-2">Route Genrator</h2>
+            <h2 class="text-black text-center font-bold gap-3 pb-2 :dark-text-white">Route Genrator</h2>
             <x-search-component wrapperClass="w-4/12 my-2 ms-auto me-auto" name="Search" inputClass="admin__routes-search"
                 placeholder="Filter routes by route name" />
         </div>
@@ -38,7 +38,7 @@
                         @foreach ($routes as $route)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row"
-                                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                     <input type=text name="route_name" value="{{ $route->name }}" readonly>
                                 </th>
                                 <td class="py-4 px-6">
@@ -58,7 +58,7 @@
                                             @endforeach
                                             <div class="permission__create flex gap-2">
                                                 <input type="text" name="permission"
-                                                    class="permission__create-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    class="permission__create-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     placeholder="Permission name |ex. edit">
                                             </div>
                                         </div>

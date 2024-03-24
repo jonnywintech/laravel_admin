@@ -1,33 +1,21 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Database\Seeders;
 
 use App\Models\Route;
 use App\Models\Permission;
 use App\Models\PermissionRoute;
-use Illuminate\Console\Command;
+use Illuminate\Database\Seeder;
 use App\Traits\RouteHelperTrait;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class GenerateBaseRoutePermissions extends Command
+class RouteSeeder extends Seeder
 {
     use RouteHelperTrait;
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
+     * Run the database seeds.
      */
-    protected $signature = 'app:generate-base-route-permissions';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Generate base routes and permissions';
-    /**
-     * Execute the console command.
-     */
-    public function handle()
+    public function run(): void
     {
         foreach ($this->getFilteredRoutes() as $route_name) {
 
@@ -37,7 +25,6 @@ class GenerateBaseRoutePermissions extends Command
             $permission = Permission::firstOrCreate(['name' => $route_name]);
 
             PermissionRoute::firstOrCreate(['route_id' => $route->id, 'permission_id' => $permission->id]);
-
         }
     }
 }

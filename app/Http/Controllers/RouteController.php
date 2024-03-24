@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\PermissionRoute;
 use App\Traits\RouteHelperTrait;
+use Database\Seeders\RouteSeeder;
 use App\Models\Route as RouteModel;
 use Illuminate\Support\Facades\Artisan;
 
@@ -17,7 +17,7 @@ class RouteController extends Controller
     // constructor generates new routes if they are created
     public function __construct()
     {
-        Artisan::call('app:generate-base-route-permissions');
+        Artisan::call('db:seed', ['--class' => 'RouteSeeder']);
     }
     public function index()
     {
