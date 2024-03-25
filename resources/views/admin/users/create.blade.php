@@ -10,21 +10,21 @@
                 @csrf
                 <!-- user name -->
                 <div>
-                    <x-input-label for="name" :value="__('Name')" />
+                    <x-input-label for="name" :value="__('Name')" class="dark:text-black"/>
                     <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name')"
                         required autofocus autocomplete="name" />
                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                 </div>
                 <!-- email -->
                 <div>
-                    <x-input-label for="email" :value="__('Email')" />
+                    <x-input-label for="email" :value="__('Email')" class="dark:text-black"/>
                     <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
                         :value="old('email')" required autocomplete="username" />
                     <x-input-error class="mt-2" :messages="$errors->get('email')" />
                 </div>
                 <!-- Password -->
                 <div class="mt-4">
-                    <x-input-label for="password" :value="__('Password')" />
+                    <x-input-label for="password" :value="__('Password')" class="dark:text-black"/>
 
                     <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
                         autocomplete="new-password" />
@@ -34,7 +34,7 @@
 
                 <!-- Confirm Password -->
                 <div class="mt-4">
-                    <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                    <x-input-label for="password_confirmation" :value="__('Confirm Password')" class="dark:text-black"/>
 
                     <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
                         name="password_confirmation" required autocomplete="new-password" />
