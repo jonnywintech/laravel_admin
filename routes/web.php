@@ -35,15 +35,14 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth', DynamicRouteMiddleware::class)->name('admin.')->prefix('admin')->group(function () {
-    Route::resource('/', AdminController::class);
-    Route::resource('/role', RoleController::class);
+    Route::resource('/', AdminController::class)->only(['index']);
+    Route::resource('/role', RoleController::class)->except(['show']);
     Route::post('/role/{role}/permissions', [RoleController::class, 'setPermissions'])->name('role.permissions');
     Route::post('/permissions/{permission}/roles', [PermissionController::class, 'setRoles'])->name('permissions.role');
-    Route::resource('/permission', PermissionController::class);
-    Route::resource('/users', UserController::class);
+    Route::resource('/permission', PermissionController::class)->except(['show']);
+    Route::resource('/users', UserController::class)->except(['show']);
     Route::patch('/users/{id}/update', [UserController::class, 'updateUserData'])->name('users.update.data');
     Route::get('/routes', [RouteController::class, 'index'])->name('routes.index');
-    // Route::get('/routes/generate', [RouteController::class, 'store'])->name('routes.store');
     Route::put('/routes/{route}/update', [RouteController::class, 'update'])->name('routes.update');
 
 });
